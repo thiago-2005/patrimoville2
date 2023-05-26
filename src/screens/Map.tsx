@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import mapMarker from '../images/Vector.png';
+import mapMarker from '../images/marker.png';
 import MapView, { Marker, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
 import { StyleSheet, Image, Text, View, Dimensions, TouchableOpacity, StatusBar } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';

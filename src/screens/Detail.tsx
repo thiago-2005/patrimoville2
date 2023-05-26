@@ -3,7 +3,7 @@ import { Image, View, ScrollView, Text, StyleSheet, Linking, Dimensions, Touchab
 import MapView, { Marker } from 'react-native-maps'
 import { Feather, FontAwesome, MaterialIcons } from '@expo/vector-icons'
 import { useRoute } from '@react-navigation/native'
-import mapMarkerImg from '../images/Vector.png'
+import mapMarkerImg from '../images/marker.png'
 import { api } from '../services/api'
 
 interface LandmarkDetails {

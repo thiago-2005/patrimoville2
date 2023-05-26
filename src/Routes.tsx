@@ -4,7 +4,6 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import { Map } from './screens/Map'
-import { Home } from './screens/Home'
 import { Detail } from './screens/Detail'
 
 import { Header } from './components/Header'
