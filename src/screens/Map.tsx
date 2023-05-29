@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import mapMarker from '../images/marker.png';
-import MapView, { Marker, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
-import { StyleSheet, Image, Text, View, Dimensions, TouchableOpacity, StatusBar } from 'react-native';
+// import MapView, { Marker, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
+import { StyleSheet, Image, Text, View, Dimensions, TouchableOpacity, StatusBar, ScrollView } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { api } from '../services/api';
 
@@ -17,11 +17,20 @@ export function Map () {
   const [landmarks, setLandmarks] = useState<LandmarkItem[]>([]);
   const navigation: any = useNavigation();
 
-  useFocusEffect(() => {
-    api.get('/landmark').then((response) => {
-      setLandmarks(response.data);
-    });
-  });
+  const getLandmarks = async () => {
+    try {
+      const response = await fetch('https://patrimoville.vercel.app/api/landmark')
+      const data = await response.json()
+      setLandmarks(data);
+    } catch (error) {
+      setLandmarks([]);
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getLandmarks();
+  }, []);
 
   function handleNavigateToLandmarksDetails(id: number) {
     navigation.navigate('Detail', { id });
@@ -29,39 +38,17 @@ export function Map () {
 
   return (
     <View style={styles.container}>
-      <MapView 
-        className='h-full w-full'
-        provider={PROVIDER_GOOGLE}
-        initialRegion={{
-          latitude: -26.3055339,
-          longitude: -48.850644,
-          latitudeDelta: 0.008,
-          longitudeDelta: 0.008,
-        }} 
-      > 
-        {landmarks.map((landmark) => {
-          return (
-            <Marker
-              key={landmark.id}
-              icon={mapMarker}
-              coordinate={{
-                latitude: Number(landmark.latitude),
-                longitude: Number(landmark.longitude),
-              }}
+      <ScrollView className='w-screen gap-3 p-2 mt-4'>
+        {landmarks.map((landmark) => (
+          <TouchableOpacity key={landmark.id} className="w-full mr-16 h-44 relative" onPress={() => handleNavigateToLandmarksDetails(landmark.id)}>
+            <Text className="mt-1 text-lg font-semibold text-white absolute bottom-2 left-2 z-50 backdrop-brightness-125">{landmark.name}</Text>
+            <Image source={{ uri: landmark.images_url[0] }} className='w-full h-full object-cover rounded-lg' />
+          </TouchableOpacity>
+        ))}
+        <View className="h-20" />
+      </ScrollView>
 
-              calloutAnchor={{
-                x: 0,
-                y: 0,
-              }}
-            >
-              <Callout tooltip onPress={() => handleNavigateToLandmarksDetails(landmark.id)}>
-                  <Text className='rounded-lg bg-cyan-400 px-2 py-1 text-lg text-white flex-1'>{landmark.name}</Text>
-              </Callout>
-            </Marker>
-            )
-        })}
-      </MapView>
-      <View style={styles.footer}>
+      <View style={styles.footer}> 
         <Text style={styles.footerText}>{landmarks.length} Locais encontrados</Text>
       </View>
     </View>
@@ -72,9 +59,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: StatusBar.currentHeight,
     flex: 1,
-    backgroundColor: '#FFFFFF',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   calloutContainer: {
   },

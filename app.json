@@ -1,4 +1,11 @@
 {
+  "android": {
+    "config": {
+      "googleMaps": {
+        "apiKey": "AIzaSyBhuLrRoNZKEof9jAv_Uh2kRVl1H7u1bmY"
+      }
+    }
+  },
   "expo": {
     "name": "patrimoville",
     "slug": "patrimoville",
@@ -21,10 +28,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/image.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "patrimoville.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5961c682-1c8e-4d65-bb7a-4777558691a1"
+      }
     }
   }
 }

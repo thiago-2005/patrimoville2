@@ -34,7 +34,7 @@ export function Detail () {
   if (!landmark) {
     return (
       <View className='w-full h-full flex-1 justify-center items-center'>
-        <Text className='text-lg text-cyan-600'>Carregando...</Text>
+        <Text className='text-lg text-cyan-500'>Carregando...</Text>
       </View>
     )
   }
@@ -56,9 +56,6 @@ export function Detail () {
               />
             )
           })}
-          <Image style={styles.image} source={{ uri: 'https://fmnova.com.br/images/noticias/safe_image.jpg' }} />
-          <Image style={styles.image} source={{ uri: 'https://fmnova.com.br/images/noticias/safe_image.jpg' }} />
-          <Image style={styles.image} source={{ uri: 'https://fmnova.com.br/images/noticias/safe_image.jpg' }} />
         </ScrollView>
       </View>
 
@@ -67,7 +64,7 @@ export function Detail () {
         <Text style={styles.description}>{landmark.history}</Text>
       
         <View style={styles.mapContainer}>
-          <MapView 
+          {/* <MapView 
             initialRegion={{
               latitude: landmark.latitude,
               longitude: landmark.longitude,
@@ -87,7 +84,7 @@ export function Detail () {
                 longitude: landmark.longitude,
               }}
             />
-          </MapView>
+          </MapView> */}
 
           <TouchableOpacity onPress={handleOpenGoogleMapRoutes} style={styles.routesContainer}>
             <Text style={styles.routesText}>Ver rotas no Google Maps</Text>
