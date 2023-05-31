@@ -19,7 +19,7 @@ export function Header({title, showCancel = true}: headerProps) {
 
   return (
     <View style={styles.container}>
-      <BorderlessButton onPress={navigation.goBack}>
+      <BorderlessButton onPress={goBackToHomePage}>
         <Feather name="arrow-left" size={24} color="#06b6d4"/>
       </BorderlessButton>
 
